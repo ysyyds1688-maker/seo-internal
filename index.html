@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO 站群關鍵字總覽 — 內部討論用</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3d;
+    --gold: #f0c040;
+    --blue: #4da6ff;
+    --green: #3dd68c;
+    --red: #ff6b6b;
+    --purple: #b07fff;
+    --cyan: #40d9ff;
+    --orange: #ff9f43;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; padding: 24px 16px 80px; }
+
+  .header { text-align: center; padding: 48px 0 40px; }
+  .header h1 { font-size: 2rem; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
+  .header p { color: var(--muted); font-size: 0.9rem; }
+  .badge { display: inline-block; background: rgba(240,192,64,.15); border: 1px solid rgba(240,192,64,.3); color: var(--gold); border-radius: 20px; padding: 4px 14px; font-size: 0.75rem; margin-top: 10px; }
+
+  .stats-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 28px; text-align: center; }
+  .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); }
+  .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  .section { max-width: 1100px; margin: 0 auto 48px; }
+  .section-title { font-size: 1.05rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .site-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 24px; overflow: hidden; }
+  .site-header { display: flex; align-items: center; gap: 14px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+  .site-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .site-info { flex: 1; }
+  .site-name { font-weight: 800; font-size: 1.05rem; }
+  .site-url { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .site-url a { color: var(--blue); text-decoration: none; }
+  .site-url a:hover { text-decoration: underline; }
+  .site-tag { font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
+  .kw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0; }
+  .kw-section { padding: 16px 24px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kw-section:last-child { border-right: none; }
+  .kw-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; font-weight: 600; }
+  .kw-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .kw { display: inline-block; background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 0.78rem; color: var(--text); cursor: default; transition: all .15s; }
+  .kw:hover { background: rgba(255,255,255,.1); border-color: var(--gold); color: var(--gold); }
+  .kw.primary { background: rgba(240,192,64,.12); border-color: rgba(240,192,64,.3); color: var(--gold); }
+  .kw.brand { background: rgba(77,166,255,.1); border-color: rgba(77,166,255,.3); color: var(--blue); }
+
+  .warning-box { background: rgba(255,107,107,.08); border: 1px solid rgba(255,107,107,.25); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start; }
+  .warning-box .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .warning-box strong { color: var(--red); display: block; margin-bottom: 4px; }
+  .warning-box p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  .overlap-badge { background: rgba(255,107,107,.15); border: 1px solid rgba(255,107,107,.3); color: var(--red); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-weight: 600; }
+
+  .note { text-align: center; color: var(--muted); font-size: 0.75rem; padding-top: 20px; }
+
+  @media (max-width: 600px) {
+    .kw-grid { grid-template-columns: 1fr; }
+    .kw-section { border-right: none; }
+    .stats-row { gap: 10px; }
+    .stat { padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎯 SEO 站群關鍵字總覽</h1>
+  <p>內部討論用 · 請勿對外分享</p>
+  <span class="badge">更新日期：2026-05-08</span>
+</div>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-num">8</div><div class="stat-label">活躍站點</div></div>
+  <div class="stat"><div class="stat-num">70+</div><div class="stat-label">目標關鍵字</div></div>
+  <div class="stat"><div class="stat-num">30+</div><div class="stat-label">已上線頁面</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">自動化任務</div></div>
+</div>
+
+<!-- 衝突警告 -->
+<div class="section">
+  <div class="warning-box">
+    <div class="icon">⚠️</div>
+    <div>
+      <strong>關鍵字重疊警告</strong>
+      <p>「娛樂城出金速度」同時被 <strong>player-one-site / withdraw.html</strong> 與 <strong>out-ys89.pages.dev</strong> 主打，兩站互搶排名，建議差異化角度切入。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 主力站 -->
+<div class="section">
+  <div class="section-title">🏆 主力評測站</div>
+
+  <!-- player-one-site -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(240,192,64,.15)">🎮</div>
+      <div class="site-info">
+        <div class="site-name">PLAYER ONE 娛樂城評測站</div>
+        <div class="site-url"><a href="https://player-one-site.pages.dev" target="_blank">player-one-site.pages.dev</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(240,192,64,.15);color:var(--gold);border:1px solid rgba(240,192,64,.3)">評測排行榜</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🔑 核心關鍵字</div>
+        <div class="kw-list">
+          <span class="kw primary">娛樂城推薦</span>
+          <span class="kw primary">台灣娛樂城推薦</span>
+          <span class="kw primary">娛樂城推薦排行榜</span>
+          <span class="kw primary">娛樂城評測</span>
+          <span class="kw primary">2026娛樂城推薦</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">💰 體驗金 / 優惠</div>
+        <div class="kw-list">
+          <span class="kw">娛樂城體驗金</span>
+          <span class="kw">娛樂城體驗金免流水</span>
+          <span class="kw">體驗金怎麼領</span>
+          <span class="kw">免費體驗金</span>
+          <span class="kw">新手體驗金</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">💸 出金 <span class="overlap-badge">與 out-ys89 重疊</span></div>
+        <div class="kw-list">
+          <span class="kw">娛樂城出金</span>
+          <span class="kw">娛樂城出金流程</span>
+          <span class="kw">娛樂城出金速度</span>
+          <span class="kw">娛樂城提款</span>
+          <span class="kw">出金被拒怎辦</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🛡️ 安全 / 詐騙</div>
+        <div class="kw-list">
+          <span class="kw">娛樂城詐騙</span>
+          <span class="kw">娛樂城黑名單</span>
+          <span class="kw">娛樂城詐騙手法</span>
+          <span class="kw">詐騙識別</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🏪 品牌評測頁</div>
+        <div class="kw-list">
+          <span class="kw brand">夜色娛樂城 YS89</span>
+          <span class="kw">Maispin麻將旋轉</span>
+          <span class="kw">RG富遊</span>
+          <span class="kw">開元棋牌</span>
+          <span class="kw">鉅城娛樂城</span>
+          <span class="kw">王者娛樂城</span>
+          <span class="kw">包你發娛樂城</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🌟 YS89 專屬頁</div>
+        <div class="kw-list">
+          <span class="kw brand">夜色娛樂城體驗金NT$368</span>
+          <span class="kw brand">夜色娛樂城USDT</span>
+          <span class="kw brand">夜色娛樂城VIP</span>
+          <span class="kw brand">夜色娛樂城優惠</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ys89.fun -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(77,166,255,.15)">🌐</div>
+      <div class="site-info">
+        <div class="site-name">YS89 主站（WordPress）</div>
+        <div class="site-url"><a href="https://ys89.fun" target="_blank">ys89.fun</a> · WordPress + Cloudflare</div>
+      </div>
+      <span class="site-tag" style="background:rgba(77,166,255,.12);color:var(--blue);border:1px solid rgba(77,166,255,.3)">品牌主站</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🏷️ 品牌核心</div>
+        <div class="kw-list">
+          <span class="kw primary">夜色娛樂城</span>
+          <span class="kw primary">夜色娛樂城評測</span>
+          <span class="kw primary">YS89</span>
+          <span class="kw primary">YS89官方網站</span>
+          <span class="kw">夜色娛樂城安全嗎</span>
+          <span class="kw">夜色詐騙</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">💎 優惠 / 紅利</div>
+        <div class="kw-list">
+          <span class="kw">夜色娛樂城體驗金</span>
+          <span class="kw">夜色首儲紅利</span>
+          <span class="kw">夜色優惠碼</span>
+          <span class="kw">夜色VIP晉升</span>
+          <span class="kw">夜色返水</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">💳 入金出金</div>
+        <div class="kw-list">
+          <span class="kw">夜色娛樂城出金</span>
+          <span class="kw">夜色USDT入金</span>
+          <span class="kw">夜色出金條件</span>
+          <span class="kw">夜色娛樂城提款</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🎲 遊戲攻略</div>
+        <div class="kw-list">
+          <span class="kw">夜色老虎機</span>
+          <span class="kw">夜色百家樂</span>
+          <span class="kw">夜色真人娛樂場</span>
+          <span class="kw">夜色世界盃投注</span>
+          <span class="kw">夜色體育博彩</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🆕 新手入門</div>
+        <div class="kw-list">
+          <span class="kw">夜色娛樂城註冊</span>
+          <span class="kw">夜色娛樂城客服</span>
+          <span class="kw">夜色APP下載</span>
+          <span class="kw">夜色手機版</span>
+          <span class="kw">夜色新手教學</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 衛星站群 -->
+<div class="section">
+  <div class="section-title">🛸 衛星站群（5站）</div>
+
+  <!-- wc.ys89.fun -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(61,214,140,.15)">⚽</div>
+      <div class="site-info">
+        <div class="site-name">世足賽主題站</div>
+        <div class="site-url"><a href="https://wc.ys89.fun" target="_blank">wc.ys89.fun</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(61,214,140,.12);color:var(--green);border:1px solid rgba(61,214,140,.3)">季節性 · 世界盃</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">⚽ 世足核心</div>
+        <div class="kw-list">
+          <span class="kw primary">世界盃投注</span>
+          <span class="kw primary">2026世界盃</span>
+          <span class="kw primary">世足賽娛樂城</span>
+          <span class="kw primary">世界盃賠率</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">📊 賠率 / 預測</div>
+        <div class="kw-list">
+          <span class="kw">世足賠率比較</span>
+          <span class="kw">世界盃預測</span>
+          <span class="kw">世足分析</span>
+          <span class="kw">世界盃冠軍預測</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">📅 賽程 / 資訊</div>
+        <div class="kw-list">
+          <span class="kw">世界盃賽程2026</span>
+          <span class="kw">世足賽程台灣時間</span>
+          <span class="kw">2026世界盃場地</span>
+          <span class="kw">世界盃分組</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🌍 國家隊</div>
+        <div class="kw-list">
+          <span class="kw">法國世界盃</span>
+          <span class="kw">西班牙世界盃</span>
+          <span class="kw">巴西世界盃</span>
+          <span class="kw">阿根廷世界盃</span>
+          <span class="kw">日本世界盃</span>
+          <span class="kw">韓國世界盃</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- slot -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(255,107,107,.15)">🎰</div>
+      <div class="site-info">
+        <div class="site-name">老虎機攻略站</div>
+        <div class="site-url"><a href="https://slot-ys89.pages.dev" target="_blank">slot-ys89.pages.dev</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(255,107,107,.12);color:var(--red);border:1px solid rgba(255,107,107,.3)">老虎機</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🎯 主打關鍵字</div>
+        <div class="kw-list">
+          <span class="kw primary">線上老虎機推薦</span>
+          <span class="kw primary">老虎機攻略</span>
+          <span class="kw primary">老虎機爆率</span>
+          <span class="kw">RTP老虎機</span>
+          <span class="kw">免費試玩老虎機</span>
+          <span class="kw">老虎機推薦排行</span>
+          <span class="kw">高RTP老虎機</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bac -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(176,127,255,.15)">🃏</div>
+      <div class="site-info">
+        <div class="site-name">百家樂攻略站</div>
+        <div class="site-url"><a href="https://bac-ys89.pages.dev" target="_blank">bac-ys89.pages.dev</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(176,127,255,.12);color:var(--purple);border:1px solid rgba(176,127,255,.3)">百家樂</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🎯 主打關鍵字</div>
+        <div class="kw-list">
+          <span class="kw primary">百家樂攻略</span>
+          <span class="kw primary">百家樂路單</span>
+          <span class="kw primary">百家樂必勝策略</span>
+          <span class="kw">真人荷官百家樂</span>
+          <span class="kw">百家樂莊閒技巧</span>
+          <span class="kw">百家樂資金管理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- app -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(64,217,255,.15)">📱</div>
+      <div class="site-info">
+        <div class="site-name">手機 APP 站</div>
+        <div class="site-url"><a href="https://app-ys89.pages.dev" target="_blank">app-ys89.pages.dev</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(64,217,255,.12);color:var(--cyan);border:1px solid rgba(64,217,255,.3)">手機版</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🎯 主打關鍵字</div>
+        <div class="kw-list">
+          <span class="kw primary">手機娛樂城推薦</span>
+          <span class="kw primary">娛樂城APP</span>
+          <span class="kw primary">手機版娛樂城</span>
+          <span class="kw">iOS娛樂城</span>
+          <span class="kw">Android娛樂城</span>
+          <span class="kw">娛樂城APP下載</span>
+          <span class="kw">手機博弈推薦</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- out -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(61,214,140,.15)">💵</div>
+      <div class="site-info">
+        <div class="site-name">出金評價站</div>
+        <div class="site-url"><a href="https://out-ys89.pages.dev" target="_blank">out-ys89.pages.dev</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(61,214,140,.12);color:var(--green);border:1px solid rgba(61,214,140,.3)">出金評價</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🎯 主打關鍵字 <span class="overlap-badge">與 player-one 重疊</span></div>
+        <div class="kw-list">
+          <span class="kw primary">娛樂城出金速度</span>
+          <span class="kw primary">出金最快娛樂城</span>
+          <span class="kw primary">娛樂城出金評價</span>
+          <span class="kw">娛樂城出金安全</span>
+          <span class="kw">出金流水條件</span>
+          <span class="kw">娛樂城出金比較</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- sport -->
+  <div class="site-card">
+    <div class="site-header">
+      <div class="site-icon" style="background:rgba(255,159,67,.15)">🏆</div>
+      <div class="site-info">
+        <div class="site-name">運彩博彩站</div>
+        <div class="site-url"><a href="https://sport-ys89.pages.dev" target="_blank">sport-ys89.pages.dev</a> · Cloudflare Pages</div>
+      </div>
+      <span class="site-tag" style="background:rgba(255,159,67,.12);color:var(--orange);border:1px solid rgba(255,159,67,.3)">運彩</span>
+    </div>
+    <div class="kw-grid">
+      <div class="kw-section">
+        <div class="kw-label">🎯 主打關鍵字</div>
+        <div class="kw-list">
+          <span class="kw primary">運彩娛樂城推薦</span>
+          <span class="kw primary">體育博彩</span>
+          <span class="kw primary">世界盃投注</span>
+          <span class="kw">足球博弈</span>
+          <span class="kw">即時運彩</span>
+          <span class="kw">運彩賠率</span>
+          <span class="kw">線上運動博彩</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 自動化任務 -->
+<div class="section">
+  <div class="section-title">⚙️ 自動化任務</div>
+  <div class="site-card">
+    <div class="kw-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px,1fr))">
+      <div class="kw-section">
+        <div class="kw-label">📊 每週一 09:03</div>
+        <div style="font-size:.85rem;color:var(--text);line-height:1.8">
+          GSC 週報自動拉取<br>
+          <span style="color:var(--muted)">點擊 / 曝光 / CTR / 排名 → Markdown 報告</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">✍️ 每週三 10:03（雲端）</div>
+        <div style="font-size:.85rem;color:var(--text);line-height:1.8">
+          ys89.fun 自動選題發文<br>
+          <span style="color:var(--muted)">找長尾詞 → 生3篇草稿 → TG確認 → 發布</span>
+        </div>
+      </div>
+      <div class="kw-section">
+        <div class="kw-label">🔄 每週四 10:03（雲端）</div>
+        <div style="font-size:.85rem;color:var(--text);line-height:1.8">
+          player-one-site 週更<br>
+          <span style="color:var(--muted)">更新評分 + 新增評測頁 → TG確認 → 自動部署</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  🔒 僅限內部討論 · 2026-05-08 · Powered by SEO Autopilot
+</div>
+
+</body>
+</html>
