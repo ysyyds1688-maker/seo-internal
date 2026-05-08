@@ -41,7 +41,8 @@
   /* ── Site Card ── */
   .site-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 24px; overflow: hidden; }
   .site-header { display: flex; align-items: center; gap: 12px; padding: clamp(14px,3vw,20px) clamp(16px,4vw,24px); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-  .site-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .site-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; overflow: hidden; background: transparent !important; }
+  .site-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
   .site-info { flex: 1; min-width: 160px; }
   .site-name { font-weight: 800; font-size: clamp(0.9rem,2.5vw,1.05rem); }
   .site-url { font-size: clamp(0.7rem,2vw,0.78rem); color: var(--muted); margin-top: 2px; word-break: break-all; }
@@ -143,7 +144,7 @@
   <!-- player-one-site -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(240,192,64,.15)">🎮</div>
+      <div class="site-icon"><img src="https://player-one-site.pages.dev/images/favicon-180.png" alt="PLAYER ONE" onerror="this.parentElement.textContent='🎮'"></div>
       <div class="site-info">
         <div class="site-name">PLAYER ONE 娛樂城評測站</div>
         <div class="site-url"><a href="https://player-one-site.pages.dev" target="_blank">player-one-site.pages.dev</a> · Cloudflare Pages</div>
@@ -217,7 +218,7 @@
   <!-- ys89.fun -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(77,166,255,.15)">🌐</div>
+      <div class="site-icon"><img src="https://ys89.fun/wp-content/uploads/2026/05/og-ys89-1.jpg" alt="YS89" onerror="this.parentElement.textContent='🌐'"></div>
       <div class="site-info">
         <div class="site-name">YS89 主站（WordPress）</div>
         <div class="site-url"><a href="https://ys89.fun" target="_blank">ys89.fun</a> · WordPress + Cloudflare</div>
@@ -286,7 +287,7 @@
   <!-- wc.ys89.fun -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(61,214,140,.15)">⚽</div>
+      <div class="site-icon"><img src="https://wc.ys89.fun/apple-touch-icon.png" alt="WC" onerror="this.src='https://wc.ys89.fun/favicon.ico'" onError="this.parentElement.textContent='⚽'"></div>
       <div class="site-info">
         <div class="site-name">世足賽主題站</div>
         <div class="site-url"><a href="https://wc.ys89.fun" target="_blank">wc.ys89.fun</a> · Cloudflare Pages</div>
@@ -338,7 +339,7 @@
   <!-- slot -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(255,107,107,.15)">🎰</div>
+      <div class="site-icon"><img src="https://slot-ys89.pages.dev/apple-touch-icon.png" alt="Slot" onerror="this.parentElement.textContent='🎰'"></div>
       <div class="site-info">
         <div class="site-name">老虎機攻略站</div>
         <div class="site-url"><a href="https://slot-ys89.pages.dev" target="_blank">slot-ys89.pages.dev</a> · Cloudflare Pages</div>
@@ -364,7 +365,7 @@
   <!-- bac -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(176,127,255,.15)">🃏</div>
+      <div class="site-icon"><img src="https://bac-ys89.pages.dev/apple-touch-icon.png" alt="Bac" onerror="this.parentElement.textContent='🃏'"></div>
       <div class="site-info">
         <div class="site-name">百家樂攻略站</div>
         <div class="site-url"><a href="https://bac-ys89.pages.dev" target="_blank">bac-ys89.pages.dev</a> · Cloudflare Pages</div>
@@ -389,7 +390,7 @@
   <!-- app -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(64,217,255,.15)">📱</div>
+      <div class="site-icon"><img src="https://app-ys89.pages.dev/apple-touch-icon.png" alt="App" onerror="this.parentElement.textContent='📱'"></div>
       <div class="site-info">
         <div class="site-name">手機 APP 站</div>
         <div class="site-url"><a href="https://app-ys89.pages.dev" target="_blank">app-ys89.pages.dev</a> · Cloudflare Pages</div>
@@ -415,7 +416,7 @@
   <!-- out -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(61,214,140,.15)">💵</div>
+      <div class="site-icon"><img src="https://out-ys89.pages.dev/apple-touch-icon.png" alt="Out" onerror="this.parentElement.textContent='💵'"></div>
       <div class="site-info">
         <div class="site-name">出金評價站</div>
         <div class="site-url"><a href="https://out-ys89.pages.dev" target="_blank">out-ys89.pages.dev</a> · Cloudflare Pages</div>
@@ -440,7 +441,7 @@
   <!-- sport -->
   <div class="site-card">
     <div class="site-header">
-      <div class="site-icon" style="background:rgba(255,159,67,.15)">🏆</div>
+      <div class="site-icon"><img src="https://sport-ys89.pages.dev/apple-touch-icon.png" alt="Sport" onerror="this.parentElement.textContent='🏆'"></div>
       <div class="site-info">
         <div class="site-name">運彩博彩站</div>
         <div class="site-url"><a href="https://sport-ys89.pages.dev" target="_blank">sport-ys89.pages.dev</a> · Cloudflare Pages</div>
