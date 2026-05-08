@@ -67,6 +67,15 @@
 
   .overlap-badge { background: rgba(255,107,107,.15); border: 1px solid rgba(255,107,107,.3); color: var(--red); font-size: 0.62rem; padding: 2px 7px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
 
+  .kw.longtail { background: rgba(61,214,140,.08); border-color: rgba(61,214,140,.3); color: var(--green); }
+  .kw.longtail::after { content: ' 長尾'; font-size: 0.6rem; opacity: .7; }
+
+  /* 圖例 */
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; max-width: 1100px; margin: 0 auto 32px; padding: 14px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+  .legend-title { font-size: 0.72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing:.06em; margin-right: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); }
+  .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+
   .note { text-align: center; color: var(--muted); font-size: 0.75rem; padding-top: 20px; }
 
   /* ── Tablet（768px）── */
@@ -103,6 +112,15 @@
   <div class="stat"><div class="stat-num">70+</div><div class="stat-label">目標關鍵字</div></div>
   <div class="stat"><div class="stat-num">30+</div><div class="stat-label">已上線頁面</div></div>
   <div class="stat"><div class="stat-num">3</div><div class="stat-label">自動化任務</div></div>
+</div>
+
+<!-- 圖例 -->
+<div class="legend">
+  <span class="legend-title">圖例：</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(240,192,64,.5);border:1px solid rgba(240,192,64,.6)"></span>核心關鍵字（搜尋量高、競爭激烈）</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(77,166,255,.4);border:1px solid rgba(77,166,255,.5)"></span>品牌關鍵字（導流 YS89）</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(61,214,140,.3);border:1px solid rgba(61,214,140,.4)"></span>長尾關鍵字（搜尋量低、轉換率高）</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15)"></span>一般關鍵字</span>
 </div>
 
 <!-- 衝突警告 -->
@@ -479,5 +497,30 @@
   🔒 僅限內部討論 · 2026-05-08 · Powered by SEO Autopilot
 </div>
 
+<script>
+// 自動標記長尾關鍵字
+// 判斷規則：中文字數 >= 7字，或包含疑問詞/教學詞/比較詞
+const longtailPatterns = /怎麼|怎辦|教學|攻略|推薦排行|免流水|多久|如何|哪家|哪些|比較|評價|安全嗎|官方網站|NT\$|APP下載|手機版|完整|全攻略|台灣時間/;
+
+document.querySelectorAll('.kw:not(.primary):not(.brand)').forEach(el => {
+  const text = el.textContent.trim();
+  const chLen = (text.match(/[一-鿿＀-￯]/g) || []).length;
+  if (chLen >= 7 || longtailPatterns.test(text)) {
+    el.classList.add('longtail');
+  }
+});
+
+// primary 裡面也有長尾的，也標
+document.querySelectorAll('.kw.primary').forEach(el => {
+  const text = el.textContent.trim();
+  const chLen = (text.match(/[一-鿿＀-￯]/g) || []).length;
+  if (chLen >= 7 || longtailPatterns.test(text)) {
+    el.classList.add('longtail');
+    el.style.background = 'rgba(61,214,140,.1)';
+    el.style.borderColor = 'rgba(61,214,140,.35)';
+    el.style.color = 'var(--green)';
+  }
+});
+</script>
 </body>
 </html>
